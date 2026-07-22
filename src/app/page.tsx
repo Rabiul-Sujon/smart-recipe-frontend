@@ -1,7 +1,11 @@
+import Navbar from "@/components/layout/Navbar";
+import Hero from "@/components/layout/Hero";
+
 export default function Home() {
   return (
     <main>
-      <h1>SmartRecipe</h1>
+      <Navbar />
+      <Hero />
     </main>
   );
 }
