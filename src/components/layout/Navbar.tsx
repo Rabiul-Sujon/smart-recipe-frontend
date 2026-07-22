@@ -2,10 +2,14 @@
 import Link from "next/link";
 import { useState } from "react";
 import { Menu, X, ChefHat } from "lucide-react";
+import { useAuth } from "@/context/AuthContext";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
-  const isLoggedIn = false; // will wire to auth context later
+  
+   // ...inside the component:
+  const { user, logout } = useAuth();
+  const isLoggedIn = !!user;
 
   const loggedOutLinks = [
     { href: "/explore", label: "Explore" },
@@ -48,7 +52,9 @@ export default function Navbar() {
               Login
             </Link>
           ) : (
-            <button className="text-gray-700 font-medium hover:text-orange-600">Logout</button>
+            <button onClick={logout} className="text-gray-700 font-medium hover:text-orange-600">
+  Logout
+</button>
           )}
         </div>
 
