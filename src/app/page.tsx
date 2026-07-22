@@ -6,6 +6,7 @@ import Stats from "@/components/layout/Stats";
 import Testimonials from "@/components/layout/Testimonials";
 import FAQ from "@/components/layout/FAQ";
 import CTA from "@/components/layout/CTA";
+import Footer from "@/components/layout/Footer";
 
 
 export default function Home() {
@@ -19,6 +20,7 @@ export default function Home() {
       <Testimonials />
       <FAQ />
       <CTA />
+      <Footer />
      
     </main>
   );
