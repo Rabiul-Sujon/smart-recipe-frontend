@@ -4,6 +4,9 @@ import Features from "@/components/layout/Features";
 import Categories from "@/components/layout/Categories";
 import Stats from "@/components/layout/Stats";
 import Testimonials from "@/components/layout/Testimonials";
+import FAQ from "@/components/layout/FAQ";
+import CTA from "@/components/layout/CTA";
+
 
 export default function Home() {
   return (
@@ -14,6 +17,8 @@ export default function Home() {
       <Categories />
       <Stats />
       <Testimonials />
+      <FAQ />
+      <CTA />
      
     </main>
   );
