@@ -22,6 +22,7 @@ export default function Navbar() {
     { href: "/items/add", label: "Add Recipe" },
     { href: "/items/manage", label: "My Recipes" },
     { href: "/ai-chat", label: "AI Assistant" },
+    { href: "/recommendations", label: "For You" },
   ];
 
   const links = isLoggedIn ? loggedInLinks : loggedOutLinks;

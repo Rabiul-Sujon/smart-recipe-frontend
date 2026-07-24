@@ -8,6 +8,8 @@ import api from "@/lib/axios";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import RecipeCard from "@/components/recipe/RecipeCard";
+import { useAuth } from "@/context/AuthContext";
+import { useEffect } from "react";
 
 export default function RecipeDetailsPage() {
   const { id } = useParams();
@@ -19,6 +21,20 @@ export default function RecipeDetailsPage() {
       return res.data;
     },
   });
+
+  const { user } = useAuth();
+  useEffect(() => {
+  if (recipe && user) {
+    api.post("/ai/interact", {
+      recipeId: recipe._id,
+      cuisine: recipe.cuisine,
+      action: "view",
+    }).catch(() => {});
+  }
+}, [recipe, user]);
+
+
+
 
   const { data: related } = useQuery({
     queryKey: ["related", recipe?.cuisine],
