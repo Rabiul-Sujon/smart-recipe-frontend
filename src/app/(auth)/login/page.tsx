@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { motion } from "framer-motion";
@@ -13,6 +13,19 @@ export default function LoginPage() {
   const [loading, setLoading] = useState(false);
   const { login } = useAuth();
   const router = useRouter();
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const errParam = params.get("error");
+    if (errParam) {
+      if (errParam === "google_failed") setError("Google authentication failed. Please check your credentials.");
+      else if (errParam === "google_token_failed") setError("Invalid Google OAuth credentials or Client Secret.");
+      else if (errParam === "google_userinfo_failed") setError("Could not fetch profile from Google.");
+      else if (errParam === "backend_auth_failed") setError("Backend failed to process Google login.");
+      else if (errParam === "no_code") setError("No authorization code received from Google.");
+      else setError(`Google Login error: ${errParam}`);
+    }
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -57,6 +70,15 @@ export default function LoginPage() {
           className="w-full border border-orange-300 text-orange-600 py-2.5 rounded-lg font-medium hover:bg-orange-50 transition-colors mb-4"
         >
           Use Demo Account
+        </button>
+
+        <button
+          onClick={() => window.location.href = "/api/auth/google"}
+          type="button"
+          className="w-full flex items-center justify-center gap-3 border border-gray-300 text-gray-700 py-2.5 rounded-lg font-medium hover:bg-gray-50 transition-colors mb-4"
+        >
+          <img src="https://www.google.com/favicon.ico" alt="Google" className="w-5 h-5" />
+          Continue with Google
         </button>
 
         <div className="flex items-center gap-3 mb-4">

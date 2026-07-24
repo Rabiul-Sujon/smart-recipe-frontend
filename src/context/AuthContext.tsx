@@ -22,13 +22,25 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    const storedUser = localStorage.getItem("user");
-    if (storedUser) {
-      setUser(JSON.parse(storedUser));
+ useEffect(() => {
+  setTimeout(() => {
+    try {
+      const storedUser = localStorage.getItem("user");
+      const storedToken = localStorage.getItem("token");
+      if (storedUser && storedUser !== "undefined" && storedToken) {
+        const parsed = JSON.parse(storedUser);
+        if (parsed && parsed.id) {
+          setUser(parsed);
+        }
+      }
+    } catch (e) {
+      localStorage.removeItem("user");
+      localStorage.removeItem("token");
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
-  }, []);
+  }, 0);
+}, []);
 
   const login = async (email: string, password: string) => {
     const res = await api.post("/auth/login", { email, password });
